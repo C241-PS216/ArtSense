@@ -1,3 +1,51 @@
 <resources>
     <string name="app_name">ArtSense</string>
+    <string name="Login_top_text">Login Here</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login_text">Login</string>
+    <string name="register_top_text">Register An Account</string>
+    <string name="username">Username</string>
+    <string name="register_here">Don\'t have an account? Register here</string>
+    <string name="login_here">Already Have an Account? Login Here</string>
+    <string name="guest">Guest</string>
+    <string name="about">About</string>
+    <string name="openNav">Open Navigation</string>
+    <string name="closeNav">Close Navigation</string>
+    <string name="how_it_works">How It Works</string>
+    <string name="logout">Logout</string>
+    <string name="login">Login</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="welcome_to_artsense">Welcome To ArtSense</string>
+    <string name="welcome_bottom_text">Find the Artist Behind AI Generated Image</string>
+    <string name="or">Or</string>
+    <string name="login_as_guest_clickable">Continue As Guest</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="upload_description">Discover the Artists Behind AI-Generated Images</string>
+    <string name="upload_description_bot">Upload your AI-generated images to recognize and credit the original artists.</string>
+    <string name="upload_desc">Click to upload your AI generated Image</string>
+    <string name="predict">Predict</string>
+    <string name="predict_desc">Click to find out who is the artist behind the image</string>
+    <string name="result">Possible Result:</string>
+    <string name="social_media">Artist Social Media:</string>
+    <string name="another">Generate Another</string>
+
+
+    <string name="title">ArtSense</string>
+    <string name="version">Version 0.0.0 </string>
+    <string name="hiw">How it Works?</string>
+    <string name="hiw_sub">Upload a generated image by AI (stable diffusion) and wait for the system to load.</string>
+    <string name="hiw_detail">The system will show some artists names from our database whose arts are used as inspirations of your image 😉</string>
+    <string name="upload">Upload</string>
 </resources>
