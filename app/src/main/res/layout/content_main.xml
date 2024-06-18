@@ -11,9 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/DarkGrey"
-        >
-
+        android:background="@color/DarkGrey">
 
         <TextView
             android:id="@+id/textView"
@@ -33,33 +31,34 @@
             android:gravity="center"
             android:textColor="@color/white"
             android:text="@string/upload_description_bot" />
+
         <ImageView
+            android:id="@+id/uploadButton"
             android:layout_marginTop="70dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@drawable/upload"
-            />
-        <Button
-            android:id="@+id/button"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="30dp"
-            android:backgroundTint="#4CBB17"
-            android:text="@string/upload"
-            android:layout_gravity="center"
-            />
-
+            android:clickable="true"
+            android:focusable="true" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:text="@string/upload_desc"
+            android:paddingTop="15dp" />
 
     </LinearLayout>
 
-
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="435dp"
-        android:layout_height="70dp"
+        android:layout_width="500dp"
+        android:layout_height="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/elipse_arch" />
+        app:srcCompat="@drawable/elipsedeco" />
 </androidx.constraintlayout.widget.ConstraintLayout>
