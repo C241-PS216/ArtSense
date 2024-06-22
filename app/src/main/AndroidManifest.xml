@@ -17,6 +17,7 @@
             android:name=".WelcomeActivity"
             android:exported="false" />
         <activity
+            android:theme="@style/Theme.ArtSense"
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity

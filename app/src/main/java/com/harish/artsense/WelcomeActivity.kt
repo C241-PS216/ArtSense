@@ -29,6 +29,9 @@ class WelcomeActivity : AppCompatActivity() {
         binding.buttonLogin.setOnClickListener{
             startActivity(Intent(this@WelcomeActivity, LoginActivity::class.java))
         }
+        binding.buttonRegister.setOnClickListener{
+            startActivity(Intent(this@WelcomeActivity, RegisterActivity::class.java))
+        }
         binding.tvGuestButton.setOnClickListener{
             lifecycleScope.launch {
                 val guestUser = LoginData(

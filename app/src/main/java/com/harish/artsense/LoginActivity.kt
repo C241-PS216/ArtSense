@@ -29,54 +29,64 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        login()
+        ButtonClick()
     }
 
-    private fun login(){
+    private fun ButtonClick(){
         binding.buttonLogin.setOnClickListener{
             val username =binding.emailEditText.text.toString().trim()
             val password =binding.passwordEditText.text.toString().trim()
-            if ((TextUtils.isEmpty(username)|| TextUtils.isEmpty(password))){
-                Toast.makeText(this, "Username and Password Cannot be empty", Toast.LENGTH_SHORT).show()
-            }else{
-                showLoading(true)
-                    viewModel.login(username,password).observe(this@LoginActivity){result->
-                        if (result != null){
-                            when(result){
-                                is ResultState.Error -> {
-                                    showLoading(false)
-                                    Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
-                                }
-                                is ResultState.Loading -> {
-                                    showLoading(true)
-                                }
-                                is ResultState.Success -> {
-                                    showLoading(false)
-                                    lifecycleScope.launch {
-                                        showLoading(false)
-                                       val login =  LoginResponse(
-                                            userid = result.data.userid
-                                            , username = result.data.username
-                                            , token = result.data.token
-                                        )
-                                        viewModel.saveSession(login)
-                                        LoginData(
-                                            name =  result.data.username.toString(),
-                                            token = result.data.token.toString(),
-                                            userId = result.data.userid.toString(),
-                                            isLogin = true,
-                                            isGuest = false
-                                        )
-                                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                                    }
-                                }
+
+            login(username, password)
+        }
+        binding.registerClickable.setOnClickListener{
+            startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
+        }
+    }
+
+    fun login(username: String, password : String){
+        if ((TextUtils.isEmpty(username)|| TextUtils.isEmpty(password))){
+            Toast.makeText(this, "Username and Password Cannot be empty", Toast.LENGTH_SHORT).show()
+        }else{
+            showLoading(true)
+            viewModel.login(username,password).observe(this@LoginActivity){result->
+                if (result != null){
+                    when(result){
+                        is ResultState.Error -> {
+                            showLoading(false)
+                            Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
+                        }
+                        is ResultState.Loading -> {
+                            showLoading(true)
+                        }
+                        is ResultState.Success -> {
+                            showLoading(false)
+                            lifecycleScope.launch {
+                                showLoading(false)
+                                val login =  LoginResponse(
+                                    userid = result.data.userid
+                                    , username = result.data.username
+                                    , token = result.data.token
+                                )
+                                viewModel.saveSession(login)
+                                LoginData(
+                                    name =  result.data.username.toString(),
+                                    token = result.data.token.toString(),
+                                    userId = result.data.userid.toString(),
+                                    isLogin = true,
+                                    isGuest = false
+                                )
+                                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                             }
                         }
-
                     }
+                }
+
             }
         }
     }
+
+
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE

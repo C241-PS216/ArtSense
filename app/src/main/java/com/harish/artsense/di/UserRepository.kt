@@ -6,6 +6,7 @@ import com.google.gson.Gson
 import com.harish.artsense.Api.ApiService
 import com.harish.artsense.Api.Response.LoginData
 import com.harish.artsense.Api.Response.LoginResponse
+import com.harish.artsense.Api.Response.RegisterResponse
 import kotlinx.coroutines.flow.Flow
 import retrofit2.HttpException
 import java.io.IOException
@@ -18,6 +19,18 @@ class UserRepository(  private val apiService: ApiService,private val dataPrefer
         emit(ResultState.Loading)
         try {
             val successResult = apiService.login(username, password)
+            emit(ResultState.Success(successResult))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, LoginResponse::class.java)
+            emit(ResultState.Error(errorResponse.error!!))
+        }
+    }
+
+    fun register(username: String, password: String) : LiveData<ResultState<RegisterResponse>> = liveData {
+        emit(ResultState.Loading)
+        try {
+            val successResult = apiService.register(username, password)
             emit(ResultState.Success(successResult))
         } catch (e: HttpException) {
             val errorBody = e.response()?.errorBody()?.string()
