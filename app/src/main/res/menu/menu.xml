@@ -20,10 +20,15 @@
 
         <menu>
             <item
-                android:id="@+id/logoutMenu"
+                android:id="@+id/loginMenu"
                 android:icon="@drawable/ic_baseline_person_24"
-                android:title="@string/logout"
+                android:title="@string/Login"
                 />
+
+            <item
+                android:id="@+id/logoutMenu"
+                android:title="@string/logout"
+                android:icon="@drawable/ic_baseline_email_24" />
         </menu>
     </item>
 </menu>

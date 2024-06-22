@@ -26,17 +26,19 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tvUsernameDrawer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/username"
+                android:text="@string/guest"
                 android:textColor="@color/white"
                 android:textSize="16dp"
                 android:textStyle="bold"
                 />
             <TextView
+                android:id="@+id/tvUserIdDrawer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/email"
+                android:text="@string/guest"
                 android:textColor="@color/white"
                 />
         </LinearLayout>
