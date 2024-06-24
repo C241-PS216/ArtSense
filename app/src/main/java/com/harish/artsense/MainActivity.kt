@@ -2,39 +2,41 @@ package com.harish.artsense
 
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
-import android.view.Menu
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.harish.artsense.ViewModel.MainViewModel
 import com.harish.artsense.ViewModel.ViewModelFactory
 import com.harish.artsense.databinding.ActivityMainBinding
+import com.harish.artsense.di.ResultState
+import com.harish.artsense.di.reduceFileImage
+import com.harish.artsense.di.uriToFile
 import kotlinx.coroutines.launch
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var toggle: ActionBarDrawerToggle
+    private var currentImageUri: Uri? = null
+
 
     private val viewModel by viewModels<MainViewModel> {
         ViewModelFactory.getInstance(this)
@@ -94,7 +96,16 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+        val uploadBtn: ImageView = findViewById(R.id.uploadButton)
 
+        uploadBtn.setOnClickListener {
+            launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+        }
+        val upload: Button = findViewById(R.id.upload)
+        upload.visibility = View.GONE
+        upload.setOnClickListener {
+            uploadImage()
+        }
 
         getSession()
     }
@@ -126,12 +137,69 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    private val launcherGallery = registerForActivityResult(
+        ActivityResultContracts.PickVisualMedia()
+    ) { uri: Uri? ->
+        if (uri != null) {
+            currentImageUri = uri
+            showImage()
+        } else {
+            Log.d("Photo Picker", "No media selected")
+        }
+    }
+
+    private fun uploadImage() {
+        currentImageUri?.let { uri ->
+            val imageFile = uriToFile(uri, this).reduceFileImage()
+            Log.d("Image File", "showImage: ${imageFile.path}")
+
+            viewModel.Upload(imageFile).observe(this) { result ->
+                if (result != null) {
+                    when (result) {
+                        is ResultState.Error -> {
+                            showToast(result.error)
+                            showLoading(false)
+                        }
+                        ResultState.Loading -> {
+                            showLoading(true)
+                        }
+                        is ResultState.Success -> {
+                            showLoading(false)
+                            showToast(result.data.message.toString())
+                            startActivity(Intent(this@MainActivity, ActivityResult::class.java))
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    private fun showImage() {
+        currentImageUri?.let {
+            val uploadBtn: ImageView = findViewById(R.id.uploadButton)
+            Log.d("Image URI", "showImage: $it")
+            uploadBtn.setImageURI(it)
+            val upload: Button = findViewById(R.id.upload)
+            upload.visibility = View.VISIBLE
+
+        }
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return if (toggle.onOptionsItemSelected(item)) {
             true
         } else {
             super.onOptionsItemSelected(item)
         }
+    }
+    private fun showLoading(isLoading: Boolean) {
+        val progress : ProgressBar = findViewById(R.id.progressIndicator1)
+           progress.visibility =  if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
 

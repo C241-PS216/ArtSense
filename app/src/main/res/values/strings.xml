@@ -50,4 +50,5 @@
     <string name="upload">Upload</string>
     <string name="Login">Login</string>
     <string name="history">History</string>
+    <string name="upload_another">Upload Another</string>
 </resources>

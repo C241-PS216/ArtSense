@@ -9,18 +9,39 @@ import androidx.paging.liveData
 import com.google.gson.Gson
 import com.harish.artsense.Api.ApiService
 import com.harish.artsense.Api.Response.HistoryPagingSource
-import com.harish.artsense.Api.Response.HistoryResponse
 import com.harish.artsense.Api.Response.HistoryResponseItem
 import com.harish.artsense.Api.Response.LoginData
 import com.harish.artsense.Api.Response.LoginResponse
 import com.harish.artsense.Api.Response.RegisterResponse
+import com.harish.artsense.Api.Response.UploadResponse
 import kotlinx.coroutines.flow.Flow
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.HttpException
-import java.io.IOException
+import java.io.File
 
 class UserRepository(  private val apiService: ApiService,private val dataPreference: DataPreference) {
 
 
+    fun Upload(imageFile: File) = liveData {
+        emit(ResultState.Loading)
+        val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+        val multipartBody = MultipartBody.Part.createFormData(
+            "photo",
+            imageFile.name,
+            requestImageFile
+        )
+        try {
+            val successResponse = apiService.uploadImage(multipartBody)
+            emit(ResultState.Success(successResponse))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, UploadResponse::class.java)
+            emit(ResultState.Error(errorResponse.error!!))
+        }
+
+    }
 
     fun login(username: String, password: String) : LiveData<ResultState<LoginResponse>> = liveData {
         emit(ResultState.Loading)
