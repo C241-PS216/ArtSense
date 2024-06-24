@@ -13,6 +13,11 @@
             android:id="@+id/howItWorksMenu"
             android:icon="@drawable/howitworks"
             android:title="@string/how_it_works"/>
+        <item
+            android:id="@+id/historyMenu"
+            android:icon="@drawable/baseline_history_24"
+            android:title="@string/history"/>
+
     </group>
 
     <item

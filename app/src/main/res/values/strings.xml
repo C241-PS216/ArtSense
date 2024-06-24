@@ -49,4 +49,5 @@
     <string name="hiw_detail">The system will show some artists names from our database whose arts are used as inspirations of your image 😉</string>
     <string name="upload">Upload</string>
     <string name="Login">Login</string>
+    <string name="history">History</string>
 </resources>

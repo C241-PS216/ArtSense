@@ -2,8 +2,15 @@ package com.harish.artsense.di
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.google.gson.Gson
 import com.harish.artsense.Api.ApiService
+import com.harish.artsense.Api.Response.HistoryPagingSource
+import com.harish.artsense.Api.Response.HistoryResponse
+import com.harish.artsense.Api.Response.HistoryResponseItem
 import com.harish.artsense.Api.Response.LoginData
 import com.harish.artsense.Api.Response.LoginResponse
 import com.harish.artsense.Api.Response.RegisterResponse
@@ -37,6 +44,17 @@ class UserRepository(  private val apiService: ApiService,private val dataPrefer
             val errorResponse = Gson().fromJson(errorBody, LoginResponse::class.java)
             emit(ResultState.Error(errorResponse.error!!))
         }
+    }
+
+    fun getHistory(): LiveData<PagingData<HistoryResponseItem>>{
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            pagingSourceFactory = {
+                HistoryPagingSource(apiService)
+            }
+        ).liveData
     }
 
     suspend fun saveSession(loginResponse: LoginResponse){

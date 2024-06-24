@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -60,18 +61,17 @@ class MainActivity : AppCompatActivity() {
         toggle.drawerArrowDrawable.color = Color.WHITE
         navView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.aboutMenu -> Toast.makeText(
-                    applicationContext,
-                    "aboutMenu",
-                    Toast.LENGTH_SHORT
-                ).show()
+                R.id.historyMenu ->{
+                    startActivity(Intent(this@MainActivity, HistoryActivity::class.java))
+                }
 
-                R.id.howItWorksMenu -> Toast.makeText(
-                    applicationContext,
-                    "how it works menu",
-                    Toast.LENGTH_SHORT
-                ).show()
+                R.id.aboutMenu ->{
+                    startActivity(Intent(this@MainActivity, AboutActivity::class.java))
+                }
 
+                R.id.howItWorksMenu -> {
+                    startActivity(Intent(this@MainActivity, HiwActivity::class.java))
+                }
                 R.id.loginMenu ->{
                     viewModel.getSession().observe(this@MainActivity){login ->
                         lifecycleScope.launch {
@@ -84,6 +84,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.logoutMenu -> {
                     viewModel.getSession().observe(this@MainActivity){login ->
                             lifecycleScope.launch {
+                                Toast.makeText(applicationContext, "Logout Successfull", Toast.LENGTH_SHORT).show()
                                 viewModel.logout()
                         }
                     }
