@@ -43,7 +43,7 @@
 
 
     <string name="title">ArtSense</string>
-    <string name="version">Version 0.0.0 </string>
+    <string name="version">Version 0.2.1 </string>
     <string name="hiw">How it Works?</string>
     <string name="hiw_sub">Upload a generated image by AI (stable diffusion) and wait for the system to load.</string>
     <string name="hiw_detail">The system will show some artists names from our database whose arts are used as inspirations of your image 😉</string>
