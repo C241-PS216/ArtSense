@@ -2,7 +2,7 @@
 <resources>
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/DarkGrey</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/logosplash</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/artsense_white</item>
         <item name="postSplashScreenTheme">@style/Theme.ArtSense</item>
     </style>
 </resources>

@@ -17,20 +17,20 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/DarkGrey"
                 />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressIndicator1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:indicatorColor="@color/MainGreen"
+            app:trackColor="@color/white"
+            android:visibility="gone"
+            />
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_main"/>
 
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/progressIndicator1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        app:indicatorColor="@color/MainGreen"
-        app:trackColor="@color/white"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
