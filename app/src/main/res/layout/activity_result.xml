@@ -1,25 +1,33 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/DarkGrey"
+
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <ImageView
+        android:layout_marginTop="50dp"
+        android:id="@+id/uploadedImageView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/DarkGrey"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/uploadedImageView"
+        app:layout_constraintVertical_bias="0.131">
 
-        <ImageView
-            android:id="@+id/uploadedImageView"
-            android:layout_width="336dp"
-            android:layout_height="321dp"
-            android:layout_marginTop="32dp"
-            android:contentDescription="Uploaded Image" />
 
         <TextView
             android:id="@+id/textView2"
@@ -27,10 +35,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="center|start"
+            android:paddingStart="23dp"
             android:text="@string/result"
             android:textColor="@color/white"
-            android:textStyle="bold"
-            android:paddingLeft="23dp" />
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvArtist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center|start"
+            android:paddingStart="23dp"
+            android:text="@string/welcome_to_artsense"
+            android:textColor="@color/white"
+            />
 
 
         <TextView
@@ -39,27 +58,42 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="center|start"
+            android:paddingLeft="23dp"
             android:text="@string/social_media"
             android:textColor="@color/white"
-            android:textStyle="bold"
-            android:paddingLeft="23dp"/>
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvArtistSocialMedia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center|start"
+            android:paddingLeft="23dp"
+            android:text="@string/welcome_to_artsense"
+            android:textColor="@color/green"
+            />
 
         <Button
             android:id="@+id/predictButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="50dp"
             android:backgroundTint="@color/green"
-            android:text="@string/another" />
+            android:textColor="@color/white"
+            android:text="@string/upload_another" />
 
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="500dp"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progressIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:indicatorColor="@color/MainGreen"
+        app:trackColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/elipsedeco" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

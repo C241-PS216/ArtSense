@@ -1,64 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/content_main"
+    android:background="@color/DarkGrey"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/main_app_bar">
-
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/DarkGrey"
         android:orientation="vertical"
-        android:background="@color/DarkGrey">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <TextView
             android:id="@+id/textView"
-            android:layout_marginTop="50dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:layout_marginTop="50dp"
             android:gravity="center"
-            android:textStyle="bold"
-            android:text="@string/upload_description" />
+            android:text="@string/upload_description"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:gravity="center"
+            android:text="@string/upload_description_bot"
             android:textColor="@color/white"
-            android:text="@string/upload_description_bot" />
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/uploadButton"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
             android:layout_marginTop="70dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/upload" />
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:text="@string/upload_desc"
+                    android:paddingTop="15dp" />
+        <Button
+            android:id="@+id/upload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/upload"
-            android:clickable="true"
-            android:focusable="true" />
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:text="@string/upload_desc"
-            android:paddingTop="15dp" />
+            android:layout_marginTop="15dp"
+            android:background="@drawable/textfield_style"
+            android:backgroundTint="@color/MainGreen"
+            android:text="@string/upload"
+            android:visibility="visible"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="500dp"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/elipsedeco" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

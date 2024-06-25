@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -7,6 +8,10 @@
     android:layout_height="match_parent"
     android:background="@color/DarkGrey"
     tools:context=".LoginActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/textView2"
@@ -43,13 +48,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:startIconDrawable="@drawable/ic_baseline_email_24"
         tools:alpha="100">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailEditText"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@drawable/textfield_style"
             android:inputType="textEmailAddress" />
 
@@ -62,7 +67,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="20dp"
-        android:text="@string/email"
+        android:text="@string/username"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/usernameEditTextLayout"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,19 +84,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameEditTextLayout" />
 
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordEditTextLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="32dp"
-        android:alpha="0"
-        app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:startIconDrawable="@drawable/ic_baseline_lock_24"
+        app:endIconMode="password_toggle"
         tools:alpha="100">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -100,29 +105,22 @@
             android:layout_height="wrap_content"
             android:background="@drawable/textfield_style"
             android:inputType="textPassword"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonLogin"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_marginTop="30dp"
         android:backgroundTint="#4CBB17"
+        android:textColor="@color/white"
         android:text="@string/login_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLayout" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="435dp"
-        android:layout_height="70dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/elipse_arch" />
+
 
     <TextView
         android:id="@+id/register_clickable"
@@ -133,7 +131,19 @@
         android:text="@string/register_here"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
 
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progressIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:indicatorColor="@color/MainGreen"
+        app:trackColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
