@@ -1,5 +1,6 @@
 package com.harish.artsense.Api
 
+import com.harish.artsense.Api.Response.ArtistResponse
 import com.harish.artsense.Api.Response.HistoryResponse
 import com.harish.artsense.Api.Response.LoginResponse
 import com.harish.artsense.Api.Response.RegisterResponse
@@ -11,6 +12,7 @@ import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -37,7 +39,9 @@ interface ApiService {
             @Multipart
             @POST("upload")
             suspend fun uploadImage(
-                @Part file: MultipartBody.Part,
+                @Part file: MultipartBody.Part
             ): UploadResponse
+    @GET("artists/{name}")
+    suspend fun getArtist(@Path("name") username: String): ArtistResponse
 
 }

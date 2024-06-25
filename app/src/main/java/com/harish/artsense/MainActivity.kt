@@ -23,6 +23,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.navigation.NavigationView
+import com.harish.artsense.Api.Response.UploadData
 import com.harish.artsense.ViewModel.MainViewModel
 import com.harish.artsense.ViewModel.ViewModelFactory
 import com.harish.artsense.databinding.ActivityMainBinding
@@ -85,9 +86,9 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.logoutMenu -> {
                     viewModel.getSession().observe(this@MainActivity){login ->
-                            lifecycleScope.launch {
-                                Toast.makeText(applicationContext, "Logout Successfull", Toast.LENGTH_SHORT).show()
-                                viewModel.logout()
+                        lifecycleScope.launch {
+                            Toast.makeText(applicationContext, "Logout Successfull", Toast.LENGTH_SHORT).show()
+                            viewModel.logout()
                         }
                     }
                 }
@@ -126,9 +127,9 @@ class MainActivity : AppCompatActivity() {
                 headerTextViewUserId.text = login.userId
 
                 if (!login.isGuest){
-                navView.menu.findItem(R.id.loginMenu).isVisible = false
+                    navView.menu.findItem(R.id.loginMenu).isVisible = false
                 }else{
-                navView.menu.findItem(R.id.logoutMenu).isVisible = false
+                    navView.menu.findItem(R.id.logoutMenu).isVisible = false
                 }
 
 
@@ -165,8 +166,11 @@ class MainActivity : AppCompatActivity() {
                         }
                         is ResultState.Success -> {
                             showLoading(false)
-                            showToast(result.data.message.toString())
-                            startActivity(Intent(this@MainActivity, ActivityResult::class.java))
+                            val data =  UploadData(
+                                nama = result.data.artist!!.nama!!,
+                                url = result.data.url!!
+                            )
+                            result(data)
                         }
                     }
                 }
@@ -174,6 +178,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun result(result : UploadData){
+        val intent = Intent(this, ResultActivity::class.java)
+        intent.putExtra(EXTRA_DETAIL, result)
+        this.startActivity(intent)
+    }
 
     private fun showImage() {
         currentImageUri?.let {
@@ -195,11 +204,16 @@ class MainActivity : AppCompatActivity() {
     }
     private fun showLoading(isLoading: Boolean) {
         val progress : ProgressBar = findViewById(R.id.progressIndicator1)
-           progress.visibility =  if (isLoading) View.VISIBLE else View.GONE
+        progress.visibility =  if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+
+    companion object{
+        const val EXTRA_DETAIL = "extra_detail"
     }
 }
 

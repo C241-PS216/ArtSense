@@ -8,6 +8,7 @@ import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.google.gson.Gson
 import com.harish.artsense.Api.ApiService
+import com.harish.artsense.Api.Response.ArtistResponse
 import com.harish.artsense.Api.Response.HistoryPagingSource
 import com.harish.artsense.Api.Response.HistoryResponseItem
 import com.harish.artsense.Api.Response.LoginData
@@ -24,11 +25,25 @@ import java.io.File
 class UserRepository(  private val apiService: ApiService,private val dataPreference: DataPreference) {
 
 
-    fun Upload(imageFile: File) = liveData {
+
+
+    fun getArtist(name : String) : LiveData<ResultState<ArtistResponse>> = liveData{
+        emit(ResultState.Loading)
+        try {
+            val successReult = apiService.getArtist(name)
+            emit(ResultState.Success(successReult))
+        }catch (e : HttpException){
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, ArtistResponse::class.java)
+            emit(ResultState.Error(errorResponse.error!!))
+        }
+    }
+
+    fun Upload(imageFile: File): LiveData<ResultState<UploadResponse>>  = liveData {
         emit(ResultState.Loading)
         val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
         val multipartBody = MultipartBody.Part.createFormData(
-            "photo",
+            "file",
             imageFile.name,
             requestImageFile
         )

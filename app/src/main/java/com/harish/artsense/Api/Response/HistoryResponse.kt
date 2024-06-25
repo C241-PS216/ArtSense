@@ -17,7 +17,7 @@ data class HistoryResponseItem(
 	val history: History? = null
 )
 
-data class History(
+data class Historys(
 
 	@field:SerializedName("result")
 	val result: String? = null,
