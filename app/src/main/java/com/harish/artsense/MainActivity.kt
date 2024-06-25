@@ -153,24 +153,26 @@ class MainActivity : AppCompatActivity() {
         currentImageUri?.let { uri ->
             val imageFile = uriToFile(uri, this).reduceFileImage()
             Log.d("Image File", "showImage: ${imageFile.path}")
-
-            viewModel.Upload(imageFile).observe(this) { result ->
-                if (result != null) {
-                    when (result) {
-                        is ResultState.Error -> {
-                            showToast(result.error)
-                            showLoading(false)
-                        }
-                        ResultState.Loading -> {
-                            showLoading(true)
-                        }
-                        is ResultState.Success -> {
-                            showLoading(false)
-                            val data =  UploadData(
-                                nama = result.data.artist!!.nama!!,
-                                url = result.data.url!!
-                            )
-                            result(data)
+            lifecycleScope.launch {
+                showLoading(true)
+                viewModel.Upload(imageFile).observe(this@MainActivity) { result ->
+                    if (result != null) {
+                        when (result) {
+                            is ResultState.Error -> {
+                                showToast(result.error)
+                                showLoading(false)
+                            }
+                            ResultState.Loading -> {
+                                showLoading(true)
+                            }
+                            is ResultState.Success -> {
+                                showLoading(false)
+                                val data =  UploadData(
+                                    nama = result.data.artist!!.nama!!,
+                                    url = result.data.url!!
+                                )
+                                result(data)
+                            }
                         }
                     }
                 }

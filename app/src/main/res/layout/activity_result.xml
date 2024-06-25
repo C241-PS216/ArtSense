@@ -63,16 +63,13 @@
             android:textColor="@color/white"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tvArtistSocialMedia"
+        <LinearLayout
+            android:id="@+id/linkContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center|start"
-            android:paddingLeft="23dp"
-            android:text="@string/welcome_to_artsense"
-            android:textColor="@color/green"
-            />
+            android:orientation="vertical"
+            android:padding="16dp">
+        </LinearLayout>
 
         <Button
             android:id="@+id/predictButton"

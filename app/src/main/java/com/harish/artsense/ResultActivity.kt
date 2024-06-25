@@ -1,10 +1,12 @@
 package com.harish.artsense
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -36,7 +38,6 @@ class ResultActivity : AppCompatActivity() {
         val detail : UploadData? =  intent.getParcelableExtra(EXTRA_DETAIL)
 
         val name = detail!!.nama
-        binding.tvArtistSocialMedia.movementMethod = LinkMovementMethod.getInstance()
 
         binding.predictButton.setOnClickListener {
             startActivity(Intent(this,MainActivity::class.java))
@@ -55,7 +56,6 @@ class ResultActivity : AppCompatActivity() {
     }
 
     fun getArtist(name : String){
-        lifecycleScope.launch {
             showLoading(true)
             viewModel.getArtist(name).observe(this@ResultActivity){result ->
                 if (result != null) {
@@ -75,17 +75,24 @@ class ResultActivity : AppCompatActivity() {
                 }
             }
         }
-    }
+
 
     private fun displayLinks(links: List<String?>?) {
-        val linksText = links?.joinToString(separator = "\n")
-        binding.tvArtistSocialMedia.text = linksText ?: "No links available"
-
-        binding.tvArtistSocialMedia.setOnClickListener {
-            links?.forEach { link ->
-                link?.let {
-                    openUrlInBrowser(it)
+        val container = binding.linkContainer
+        container.removeAllViews() // Clear any existing views
+        links?.forEach { link ->
+            link?.let {
+                val linkTextView = TextView(this).apply {
+                    text = link
+                    textSize = 16f
+                    setTextColor(Color.GREEN)
+                    setPadding(16, 16, 16, 16)
+                    movementMethod = LinkMovementMethod.getInstance()
+                    setOnClickListener {
+                        openUrlInBrowser(link)
+                    }
                 }
+                container.addView(linkTextView)
             }
         }
     }
